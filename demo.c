@@ -35,7 +35,10 @@
 
         //quando compilo no compiler explorer mudo a utilização dos registradores $2
         //devido ao fato de o syscall usar este mesmo registrador
-        //então compilo para gerar o código mips e mudo todos os registradores de $2 para $20
+        //então compilo para gerar o código mips e mudo todos os registradores de $2 para $26
+
+
+        //fazer ajuste no final da main no demo.asm para interromper a execução do programa
 
         for (int i=0; i<n; i++ ){
             for (int j=0; j<n; j++ ){
