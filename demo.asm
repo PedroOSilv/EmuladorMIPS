@@ -11,479 +11,416 @@ main:
         sw      $17,132($sp)
         sw      $16,128($sp)
         move    $fp,$sp
-        move    $26,$sp
-        sw      $26,120($fp)
-        li      $26,3                        # 0x3
-        sw      $26,52($fp)
+        move    $2,$sp
+        sw      $2,120($fp)
+        li      $2,3                        # 0x3
+        sw      $2,52($fp)
         sw      $0,48($fp)
-        li      $26,11                 # 0xb
-        sw      $26,56($fp)
+        li      $2,11                 # 0xb
+        sw      $2,56($fp)
         sw      $0,44($fp)
-        li      $26,67                 # 0x43
-        sb      $26,88($fp)
-        li      $26,111                  # 0x6f
-        sb      $26,89($fp)
-        li      $26,110                  # 0x6e
-        sb      $26,90($fp)
-        li      $26,115                  # 0x73
-        sb      $26,91($fp)
-        li      $26,101                  # 0x65
-        sb      $26,92($fp)
-        li      $26,103                  # 0x67
-        sb      $26,93($fp)
-        li      $26,117                  # 0x75
-        sb      $26,94($fp)
-        li      $26,105                  # 0x69
-        sb      $26,95($fp)
-        li      $26,117                  # 0x75
-        sb      $26,96($fp)
-        li      $26,33                 # 0x21
-        sb      $26,97($fp)
-        li      $26,10                 # 0xa
-        sb      $26,98($fp)
+        li      $2,67                 # 0x43
+        sb      $2,84($fp)
+        li      $2,111                  # 0x6f
+        sb      $2,85($fp)
+        li      $2,110                  # 0x6e
+        sb      $2,86($fp)
+        li      $2,115                  # 0x73
+        sb      $2,87($fp)
+        li      $2,101                  # 0x65
+        sb      $2,88($fp)
+        li      $2,103                  # 0x67
+        sb      $2,89($fp)
+        li      $2,117                  # 0x75
+        sb      $2,90($fp)
+        li      $2,105                  # 0x69
+        sb      $2,91($fp)
+        li      $2,117                  # 0x75
+        sb      $2,92($fp)
+        li      $2,33                 # 0x21
+        sb      $2,93($fp)
+        li      $2,10                 # 0xa
+        sb      $2,94($fp)
         lw      $17,52($fp)
         lw      $3,52($fp)
-        addiu   $26,$17,-1
-        sw      $26,60($fp)
-        move    $26,$17
-        move    $15,$26
+        addiu   $2,$17,-1
+        sw      $2,60($fp)
+        move    $2,$17
+        move    $15,$2
         move    $14,$0
-        srl     $26,$15,27
+        srl     $2,$15,27
         sll     $4,$14,5
-        or      $4,$26,$4
+        or      $4,$2,$4
         sll     $5,$15,5
-        move    $26,$17
-        sll     $16,$26,2
-        addiu   $26,$3,-1
-        sw      $26,64($fp)
-        move    $26,$17
-        sw      $26,116($fp)
+        move    $2,$17
+        sll     $16,$2,2
+        addiu   $2,$3,-1
+        sw      $2,64($fp)
+        move    $2,$17
+        sw      $2,116($fp)
         sw      $0,112($fp)
         sw      $3,124($fp)
-        move    $26,$3
-        sw      $26,108($fp)
+        move    $2,$3
+        sw      $2,108($fp)
         sw      $0,104($fp)
         lw      $5,116($fp)
         lw      $4,112($fp)
         move    $3,$4
         lw      $15,108($fp)
         lw      $14,104($fp)
-        move    $26,$15
-        mul     $3,$3,$26
+        move    $2,$15
+        mul     $3,$3,$2
         sw      $15,108($fp)
         sw      $14,104($fp)
-        move    $26,$14
+        move    $2,$14
         move    $15,$5
         move    $14,$4
         move    $4,$15
-        mul     $26,$26,$4
-        addu    $4,$3,$26
+        mul     $2,$2,$4
+        addu    $4,$3,$2
         move    $3,$15
         lw      $14,108($fp)
         multu   $3,$14
         mflo    $3
-        mfhi    $26
-        addu    $4,$4,$26
-        move    $26,$4
+        mfhi    $2
+        addu    $4,$4,$2
+        move    $2,$4
         srl     $4,$3,27
-        sll     $12,$26,5
+        sll     $12,$2,5
         or      $12,$4,$12
         sll     $13,$3,5
-        move    $26,$17
-        move    $23,$26
+        move    $2,$17
+        move    $23,$2
         move    $22,$0
         lw      $5,124($fp)
-        move    $26,$5
-        move    $21,$26
+        move    $2,$5
+        move    $21,$2
         move    $20,$0
         mul     $3,$22,$21
-        mul     $26,$20,$23
-        addu    $4,$3,$26
+        mul     $2,$20,$23
+        addu    $4,$3,$2
         multu   $23,$21
         mflo    $3
-        mfhi    $26
-        addu    $4,$4,$26
-        move    $26,$4
+        mfhi    $2
+        addu    $4,$4,$2
+        move    $2,$4
         srl     $4,$3,27
-        sll     $10,$26,5
+        sll     $10,$2,5
         or      $10,$4,$10
         sll     $11,$3,5
         move    $3,$17
-        move    $26,$5
-        mul     $26,$3,$26
-        sll     $26,$26,2
-        addiu   $26,$26,7
-        srl     $26,$26,3
-        sll     $26,$26,3
-        subu    $sp,$sp,$26
-        addiu   $26,$sp,16
-        addiu   $26,$26,3
-        srl     $26,$26,2
-        sll     $26,$26,2
-        sw      $26,68($fp)
-        lw      $26,52($fp)
-        mul     $26,$26,$26
-        addiu   $3,$26,-1
+        move    $2,$5
+        mul     $2,$3,$2
+        sll     $2,$2,2
+        addiu   $2,$2,7
+        srl     $2,$2,3
+        sll     $2,$2,3
+        subu    $sp,$sp,$2
+        addiu   $2,$sp,16
+        addiu   $2,$2,3
+        srl     $2,$2,2
+        sll     $2,$2,2
+        sw      $2,68($fp)
+        lw      $2,52($fp)
+        mul     $2,$2,$2
+        addiu   $3,$2,-1
         sw      $3,72($fp)
-        move    $3,$26
+        move    $3,$2
         move    $19,$3
         move    $18,$0
         srl     $3,$19,27
         sll     $8,$18,5
         or      $8,$3,$8
         sll     $9,$19,5
-        move    $3,$26
+        move    $3,$2
         move    $25,$3
         move    $24,$0
         srl     $3,$25,27
         sll     $6,$24,5
         or      $6,$3,$6
         sll     $7,$25,5
-        sll     $26,$26,2
-        addiu   $26,$26,7
-        srl     $26,$26,3
-        sll     $26,$26,3
-        subu    $sp,$sp,$26
-        addiu   $26,$sp,16
-        addiu   $26,$26,3
-        srl     $26,$26,2
-        sll     $26,$26,2
-        sw      $26,76($fp)
+        sll     $2,$2,2
+        addiu   $2,$2,7
+        srl     $2,$2,3
+        sll     $2,$2,3
+        subu    $sp,$sp,$2
+        addiu   $2,$sp,16
+        addiu   $2,$2,3
+        srl     $2,$2,2
+        sll     $2,$2,2
+        sw      $2,76($fp)
         sw      $0,40($fp)
-        li      $26,1                        # 0x1
-        sw      $26,36($fp)
-        lw      $26,76($fp)
+        li      $2,1                        # 0x1
+        sw      $2,36($fp)
+        lw      $2,76($fp)
         li      $3,49                 # 0x31
-        sw      $3,0($26)
-        lw      $26,76($fp)
+        sw      $3,0($2)
+        lw      $2,76($fp)
         li      $3,50                 # 0x32
-        sw      $3,4($26)
-        lw      $26,76($fp)
+        sw      $3,4($2)
+        lw      $2,76($fp)
         li      $3,51                 # 0x33
-        sw      $3,8($26)
-        lw      $26,76($fp)
+        sw      $3,8($2)
+        lw      $2,76($fp)
         li      $3,32                 # 0x20
-        sw      $3,12($26)
-        lw      $26,76($fp)
+        sw      $3,12($2)
+        lw      $2,76($fp)
         li      $3,52                 # 0x34
-        sw      $3,16($26)
-        lw      $26,76($fp)
+        sw      $3,16($2)
+        lw      $2,76($fp)
         li      $3,54                 # 0x36
-        sw      $3,20($26)
-        lw      $26,76($fp)
+        sw      $3,20($2)
+        lw      $2,76($fp)
         li      $3,55                 # 0x37
-        sw      $3,24($26)
-        lw      $26,76($fp)
+        sw      $3,24($2)
+        lw      $2,76($fp)
         li      $3,53                 # 0x35
-        sw      $3,28($26)
-        lw      $26,76($fp)
+        sw      $3,28($2)
+        lw      $2,76($fp)
         li      $3,56                 # 0x38
-        sw      $3,32($26)
+        sw      $3,32($2)
         sw      $0,32($fp)
         b       .L2
-        nop
-
 .L5:
         sw      $0,28($fp)
         b       .L3
-        nop
-
 .L4:
         srl     $5,$16,2
         lw      $3,76($fp)
-        lw      $26,48($fp)
-        sll     $26,$26,2
-        addu    $26,$3,$26
-        lw      $3,0($26)
+        lw      $2,48($fp)
+        sll     $2,$2,2
+        addu    $2,$3,$2
+        lw      $3,0($2)
         lw      $4,68($fp)
-        lw      $26,32($fp)
-        mul     $5,$5,$26
-        lw      $26,28($fp)
-        addu    $26,$5,$26
-        sll     $26,$26,2
-        addu    $26,$4,$26
-        sw      $3,0($26)
-        lw      $26,48($fp)
-        addiu   $26,$26,1
-        sw      $26,48($fp)
-        lw      $26,28($fp)
-        addiu   $26,$26,1
-        sw      $26,28($fp)
+        lw      $2,32($fp)
+        mul     $5,$5,$2
+        lw      $2,28($fp)
+        addu    $2,$5,$2
+        sll     $2,$2,2
+        addu    $2,$4,$2
+        sw      $3,0($2)
+        lw      $2,48($fp)
+        addiu   $2,$2,1
+        sw      $2,48($fp)
+        lw      $2,28($fp)
+        addiu   $2,$2,1
+        sw      $2,28($fp)
 .L3:
         lw      $3,28($fp)
-        lw      $26,52($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L4
-        nop
-
-        lw      $26,32($fp)
-        addiu   $26,$26,1
-        sw      $26,32($fp)
+        lw      $2,52($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L4
+        lw      $2,32($fp)
+        addiu   $2,$2,1
+        sw      $2,32($fp)
 .L2:
         lw      $3,32($fp)
-        lw      $26,52($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L5
-        nop
-
+        lw      $2,52($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L5
         sw      $0,24($fp)
         b       .L6
-        nop
-
 .L9:
         sw      $0,20($fp)
         b       .L7
-        nop
-
 .L8:
         srl     $4,$16,2
         lw      $3,68($fp)
-        lw      $26,24($fp)
-        mul     $4,$4,$26
-        lw      $26,20($fp)
-        addu    $26,$4,$26
-        sll     $26,$26,2
-        addu    $26,$3,$26
-        lw      $26,0($26)
-        move    $4,$26
-        jal     printChar
-        nop
-
+        lw      $2,24($fp)
+        mul     $4,$4,$2
+        lw      $2,20($fp)
+        addu    $2,$4,$2
+        sll     $2,$2,2
+        addu    $2,$3,$2
+        lw      $2,0($2)
+        andi    $2,$2,0x00ff
+        move    $4,$2
+        jal     guardv0Print
         li      $4,32                 # 0x20
-        jal     printChar
-        nop
-
-        lw      $26,20($fp)
-        addiu   $26,$26,1
-        sw      $26,20($fp)
+        jal     guardv0Print
+        lw      $2,20($fp)
+        addiu   $2,$2,1
+        sw      $2,20($fp)
 .L7:
         lw      $3,20($fp)
-        lw      $26,52($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L8
-        nop
-
-        jal     printNewLine
-        nop
-
-        lw      $26,24($fp)
-        addiu   $26,$26,1
-        sw      $26,24($fp)
+        lw      $2,52($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L8
+        li      $4,10                 # 0xa
+        jal     guardv0Print
+        lw      $2,24($fp)
+        addiu   $2,$2,1
+        sw      $2,24($fp)
 .L6:
         lw      $3,24($fp)
-        lw      $26,52($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L9
-        nop
-
+        lw      $2,52($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L9
         b       .L10
-        nop
-
 .L18:
-        jal     readChar
-        nop
-
-        sb      $26,80($fp)
-        lbu     $3,80($fp)
-        li      $26,97                 # 0x61
-        bne     $3,$26,.L11
-        nop
-
-        lw      $26,40($fp)
-        blez    $26,.L12
-        nop
-
+        addiu   $2,$fp,96
+        move    $4,$2
+        jal     guardv0Read
+        lw      $3,96($fp)
+        li      $2,97                 # 0x61
+        bne     $3,$2,.L11
+        lw      $2,40($fp)
+        blez    $2,.L12
         srl     $3,$16,2
-        lw      $26,36($fp)
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $6,$3,$26
+        addu    $6,$3,$2
         srl     $4,$16,2
-        lw      $26,40($fp)
-        addiu   $26,$26,-1
+        lw      $2,40($fp)
+        addiu   $2,$2,-1
         lw      $3,36($fp)
         mul     $3,$4,$3
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $26,$3,$26
-        move    $5,$26
+        addu    $2,$3,$2
+        move    $5,$2
         move    $4,$6
-        jal     troca
-        nop
-
-        lw      $26,40($fp)
-        addiu   $26,$26,-1
-        sw      $26,40($fp)
+        jal     guardv0Troca
+        lw      $2,40($fp)
+        addiu   $2,$2,-1
+        sw      $2,40($fp)
         b       .L12
-        nop
-
 .L11:
-        lbu     $3,80($fp)
-        li      $26,100                  # 0x64
-        bne     $3,$26,.L13
-        nop
-
-        lw      $26,52($fp)
-        addiu   $26,$26,-1
+        lw      $3,96($fp)
+        li      $2,100                  # 0x64
+        bne     $3,$2,.L13
+        lw      $2,52($fp)
+        addiu   $2,$2,-1
         lw      $3,40($fp)
-        slt     $26,$3,$26
-        beq     $26,$0,.L12
-        nop
-
+        slt     $2,$3,$2
+        beq     $2,$0,.L12
         srl     $3,$16,2
-        lw      $26,36($fp)
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $6,$3,$26
+        addu    $6,$3,$2
         srl     $4,$16,2
-        lw      $26,40($fp)
-        addiu   $26,$26,1
+        lw      $2,40($fp)
+        addiu   $2,$2,1
         lw      $3,36($fp)
         mul     $3,$4,$3
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $26,$3,$26
-        move    $5,$26
+        addu    $2,$3,$2
+        move    $5,$2
         move    $4,$6
-        jal     troca
-        nop
-
-        lw      $26,40($fp)
-        addiu   $26,$26,1
-        sw      $26,40($fp)
+        jal     guardv0Troca
+        lw      $2,40($fp)
+        addiu   $2,$2,1
+        sw      $2,40($fp)
         b       .L12
-        nop
-
 .L13:
-        lbu     $3,80($fp)
-        li      $26,119                  # 0x77
-        bne     $3,$26,.L14
-        nop
-
-        lw      $26,36($fp)
-        blez    $26,.L12
-        nop
-
+        lw      $3,96($fp)
+        li      $2,119                  # 0x77
+        bne     $3,$2,.L14
+        lw      $2,36($fp)
+        blez    $2,.L12
         srl     $3,$16,2
-        lw      $26,36($fp)
-        addiu   $26,$26,-1
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        addiu   $2,$2,-1
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $4,$3,$26
+        addu    $4,$3,$2
         srl     $3,$16,2
-        lw      $26,36($fp)
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $26,$3,$26
-        move    $5,$26
-        jal     troca
-        nop
-
-        lw      $26,36($fp)
-        addiu   $26,$26,-1
-        sw      $26,36($fp)
+        addu    $2,$3,$2
+        move    $5,$2
+        jal     guardv0Troca
+        lw      $2,36($fp)
+        addiu   $2,$2,-1
+        sw      $2,36($fp)
         b       .L12
-        nop
-
 .L14:
-        lbu     $3,80($fp)
-        li      $26,115                  # 0x73
-        bne     $3,$26,.L12
-        nop
-
-        lw      $26,52($fp)
-        addiu   $26,$26,-1
+        lw      $3,96($fp)
+        li      $2,115                  # 0x73
+        bne     $3,$2,.L12
+        lw      $2,52($fp)
+        addiu   $2,$2,-1
         lw      $3,36($fp)
-        slt     $26,$3,$26
-        beq     $26,$0,.L12
-        nop
-
+        slt     $2,$3,$2
+        beq     $2,$0,.L12
         srl     $3,$16,2
-        lw      $26,36($fp)
-        addiu   $26,$26,1
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        addiu   $2,$2,1
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $4,$3,$26
+        addu    $4,$3,$2
         srl     $3,$16,2
-        lw      $26,36($fp)
-        mul     $3,$3,$26
-        lw      $26,40($fp)
-        addu    $26,$3,$26
-        sll     $26,$26,2
+        lw      $2,36($fp)
+        mul     $3,$3,$2
+        lw      $2,40($fp)
+        addu    $2,$3,$2
+        sll     $2,$2,2
         lw      $3,68($fp)
-        addu    $26,$3,$26
-        move    $5,$26
-        jal     troca
-        nop
-
-        lw      $26,36($fp)
-        addiu   $26,$26,1
-        sw      $26,36($fp)
+        addu    $2,$3,$2
+        move    $5,$2
+        jal     guardv0Troca
+        lw      $2,36($fp)
+        addiu   $2,$2,1
+        sw      $2,36($fp)
 .L12:
-        lw      $26,68($fp)
-        lw      $5,52($fp)
-        move    $4,$26
-        jal     verificaVetor
-        nop
-
-        sw      $26,84($fp)
-        lw      $3,84($fp)
-        li      $26,8                        # 0x8
-        bne     $3,$26,.L15
-        nop
-
-        li      $26,1                        # 0x1
-        sw      $26,44($fp)
+        lw      $2,68($fp)
+        addiu   $3,$fp,80
+        lw      $6,52($fp)
+        move    $5,$2
+        move    $4,$3
+        jal     guardv0VerificaVetor
+        lw      $3,80($fp)
+        li      $2,8                        # 0x8
+        bne     $3,$2,.L15
+        li      $2,1                        # 0x1
+        sw      $2,44($fp)
         sw      $0,16($fp)
         b       .L16
-        nop
-
 .L17:
-        lw      $26,16($fp)
+        lw      $2,16($fp)
         addiu   $3,$fp,16
-        addu    $26,$3,$26
-        lbu     $26,72($26)
-        move    $4,$26
-        jal     printChar
-        nop
-
-        lw      $26,16($fp)
-        addiu   $26,$26,1
-        sw      $26,16($fp)
+        addu    $2,$3,$2
+        lbu     $2,68($2)
+        move    $4,$2
+        jal     guardv0Print
+        lw      $2,16($fp)
+        addiu   $2,$2,1
+        sw      $2,16($fp)
 .L16:
         lw      $3,16($fp)
-        lw      $26,56($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L17
-        nop
-
+        lw      $2,56($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L17
 .L15:
-        jal     printNewLine
-        nop
-
+        li      $4,10                 # 0xa
+        jal     guardv0Print
 .L10:
-        lw      $26,44($fp)
-        beq     $26,$0,.L18
-        nop
-
-        move    $26,$0
+        lw      $2,44($fp)
+        beq     $2,$0,.L18
+        addi $v0,$zero,10
+syscall
+        move    $2,$0
         lw      $sp,120($fp)
         move    $sp,$fp
         lw      $31,164($sp)
@@ -497,59 +434,104 @@ main:
         lw      $17,132($sp)
         lw      $16,128($sp)
         addiu   $sp,$sp,168
-        addi    $v0, $zero, 10
-        syscall
-
-printInt:
-        addiu   $sp,$sp,-8
-        sw      $fp,4($sp)
+        jr      $31
+guardv0Print:
+        addiu   $sp,$sp,-24
+        sw      $31,20($sp)
+        sw      $fp,16($sp)
         move    $fp,$sp
-        sw      $4,8($fp)
-        lw      $26,8($fp)
-        ori $v0, $zero, 1
-        add $a0, $26, $zero
-syscall
+        move    $2,$4
+        sb      $2,24($fp)
+        sw $2, 0($sp)
+
+        lbu     $2,24($fp)
+        move    $4,$2
+        jal     printChar
+        lw $2, 0($sp)
+
         nop
         move    $sp,$fp
-        lw      $fp,4($sp)
-        addiu   $sp,$sp,8
+        lw      $31,20($sp)
+        lw      $fp,16($sp)
+        addiu   $sp,$sp,24
+        jr      $31
+guardv0Troca:
+        addiu   $sp,$sp,-24
+        sw      $31,20($sp)
+        sw      $fp,16($sp)
+        move    $fp,$sp
+        sw      $4,24($fp)
+        sw      $5,28($fp)
+        sw $2, 0($sp)
+
+        lw      $5,28($fp)
+        lw      $4,24($fp)
+        jal     troca
+        lw $2, 0($sp)
+
+        nop
+        move    $sp,$fp
+        lw      $31,20($sp)
+        lw      $fp,16($sp)
+        addiu   $sp,$sp,24
+        jr      $31
+guardv0Read:
+        addiu   $sp,$sp,-24
+        sw      $31,20($sp)
+        sw      $fp,16($sp)
+        move    $fp,$sp
+        sw      $4,24($fp)
+        sw $2, 0($sp)
+
+        jal     readChar
+        move    $3,$2
+        lw      $2,24($fp)
+        sw      $3,0($2)
+        lw $2, 0($sp)
+
+        nop
+        move    $sp,$fp
+        lw      $31,20($sp)
+        lw      $fp,16($sp)
+        addiu   $sp,$sp,24
+        jr      $31
+guardv0VerificaVetor:
+        addiu   $sp,$sp,-24
+        sw      $31,20($sp)
+        sw      $fp,16($sp)
+        move    $fp,$sp
+        sw      $4,24($fp)
+        sw      $5,28($fp)
+        sw      $6,32($fp)
+        sw $2, 0($sp)
+
+        lw      $5,32($fp)
+        lw      $4,28($fp)
+        jal     verificaVetor
+        move    $3,$2
+        lw      $2,24($fp)
+        sw      $3,0($2)
+        lw $2, 0($sp)
+
+        move    $2,$0
+        move    $sp,$fp
+        lw      $31,20($sp)
+        lw      $fp,16($sp)
+        addiu   $sp,$sp,24
         jr      $31
 printChar:
         addiu   $sp,$sp,-8
         sw      $fp,4($sp)
         move    $fp,$sp
-        move    $26,$4
-        sb      $26,8($fp)
-        lbu     $26,8($fp)
-        ori $v0, $zero, 11
-        add $a0, $26, $zero
+        move    $2,$4
+        sb      $2,8($fp)
+        lbu     $2,8($fp)
+        sw $3, 0($sp)
+add $3,$zero,$2
+ori $v0, $zero, 11
+        add $a0, $3, $zero
 syscall
-        nop
-        move    $sp,$fp
-        lw      $fp,4($sp)
-        addiu   $sp,$sp,8
-        jr      $31
-printString:
-        addiu   $sp,$sp,-8
-        sw      $fp,4($sp)
-        move    $fp,$sp
-        sw      $4,8($fp)
-        lw      $26,8($fp)
-        ori $v0, $zero, 4
-        add $a0, $26, $zero
-syscall
-        nop
-        move    $sp,$fp
-        lw      $fp,4($sp)
-        addiu   $sp,$sp,8
-        jr      $31
-printNewLine:
-        addiu   $sp,$sp,-8
-        sw      $fp,4($sp)
-        move    $fp,$sp
-        ori $v0, $zero, 11
-        addi $a0, $zero, 10 
-syscall
+lw $3, 0($sp)
         nop
         move    $sp,$fp
         lw      $fp,4($sp)
@@ -561,16 +543,16 @@ troca:
         move    $fp,$sp
         sw      $4,16($fp)
         sw      $5,20($fp)
-        lw      $26,16($fp)
-        lw      $26,0($26)
-        sw      $26,0($fp)
-        lw      $26,20($fp)
-        lw      $3,0($26)
-        lw      $26,16($fp)
-        sw      $3,0($26)
-        lw      $26,20($fp)
+        lw      $2,16($fp)
+        lw      $2,0($2)
+        sw      $2,0($fp)
+        lw      $2,20($fp)
+        lw      $3,0($2)
+        lw      $2,16($fp)
+        sw      $3,0($2)
+        lw      $2,20($fp)
         lw      $3,0($fp)
-        sw      $3,0($26)
+        sw      $3,0($2)
         nop
         move    $sp,$fp
         lw      $fp,12($sp)
@@ -583,13 +565,16 @@ readChar:
         sw      $31,28($sp)
         sw      $fp,24($sp)
         move    $fp,$sp
-        li $v0, 12
+
+li $v0, 12
         syscall  
-move $26, $v0
-        sw      $26,16($fp)
-        jal     printNewLine
-        jal     printNewLine
-        lw      $26,16($fp)
+move $2, $v0
+        sw      $2,16($fp)
+        li      $4,10                 # 0xa
+        jal     guardv0Print
+        li      $4,10                 # 0xa
+        jal     guardv0Print
+        lw      $2,16($fp)
         move    $sp,$fp
         lw      $31,28($sp)
         lw      $fp,24($sp)
@@ -621,140 +606,142 @@ verificaVetor:
         move    $9,$5
         move    $8,$0
         srl     $5,$9,27
-        sll     $26,$8,5
-        or      $26,$5,$26
+        sll     $2,$8,5
+        or      $2,$5,$2
         sll     $3,$9,5
-        move    $26,$4
-        sll     $26,$26,2
-        addiu   $26,$26,7
-        srl     $26,$26,3
-        sll     $26,$26,3
-        subu    $sp,$sp,$26
-        addiu   $26,$sp,16
-        addiu   $26,$26,3
-        srl     $26,$26,2
-        sll     $26,$26,2
-        sw      $26,32($fp)
+        move    $2,$4
+        sll     $2,$2,2
+        addiu   $2,$2,7
+        srl     $2,$2,3
+        sll     $2,$2,3
+        subu    $sp,$sp,$2
+        addiu   $2,$sp,16
+        addiu   $2,$2,3
+        srl     $2,$2,2
+        sll     $2,$2,2
+        sw      $2,32($fp)
         sw      $0,24($fp)
-        lw      $26,32($fp)
+        lw      $2,32($fp)
         li      $3,1                        # 0x1
-        sw      $3,0($26)
-        lw      $26,32($fp)
+        sw      $3,0($2)
+        lw      $2,32($fp)
         li      $3,2                        # 0x2
-        sw      $3,4($26)
-        lw      $26,32($fp)
+        sw      $3,4($2)
+        lw      $2,32($fp)
         li      $3,3                        # 0x3
-        sw      $3,8($26)
-        lw      $26,32($fp)
+        sw      $3,8($2)
+        lw      $2,32($fp)
         li      $3,4                        # 0x4
-        sw      $3,12($26)
-        lw      $26,32($fp)
+        sw      $3,12($2)
+        lw      $2,32($fp)
         li      $3,5                        # 0x5
-        sw      $3,16($26)
-        lw      $26,32($fp)
+        sw      $3,16($2)
+        lw      $2,32($fp)
         li      $3,6                        # 0x6
-        sw      $3,20($26)
-        lw      $26,32($fp)
+        sw      $3,20($2)
+        lw      $2,32($fp)
         li      $3,7                        # 0x7
-        sw      $3,24($26)
-        lw      $26,32($fp)
+        sw      $3,24($2)
+        lw      $2,32($fp)
         li      $3,8                        # 0x8
-        sw      $3,28($26)
+        sw      $3,28($2)
         sw      $0,20($fp)
-        b       .L28
+        b       .L30
         nop
 
-.L33:
+.L35:
         sw      $0,16($fp)
-        b       .L29
-        nop
-
-.L32:
-        lw      $3,20($fp)
-        move    $26,$3
-        sll     $26,$26,1
-        addu    $26,$26,$3
-        sll     $26,$26,2
-        move    $3,$26
-        lw      $26,64($fp)
-        addu    $3,$26,$3
-        lw      $26,16($fp)
-        sll     $26,$26,2
-        addu    $26,$3,$26
-        lw      $3,0($26)
-        li      $26,32                 # 0x20
-        beq     $3,$26,.L30
-        nop
-
-        lw      $3,20($fp)
-        move    $26,$3
-        sll     $26,$26,1
-        addu    $26,$26,$3
-        sll     $26,$26,2
-        move    $3,$26
-        lw      $26,64($fp)
-        addu    $3,$26,$3
-        lw      $26,16($fp)
-        sll     $26,$26,2
-        addu    $26,$3,$26
-        lw      $26,0($26)
-        sb      $26,36($fp)
-        lbu     $26,36($fp)
-        addiu   $26,$26,-48
-        sw      $26,40($fp)
-        lw      $4,40($fp)
-        jal     printInt
-        nop
-
-        lw      $3,32($fp)
-        lw      $26,24($fp)
-        sll     $26,$26,2
-        addu    $26,$3,$26
-        lw      $26,0($26)
-        lw      $3,40($fp)
-        bne     $3,$26,.L31
-        nop
-
-        lw      $26,24($fp)
-        addiu   $26,$26,1
-        sw      $26,24($fp)
         b       .L31
         nop
 
-.L30:
-        li      $4,32                 # 0x20
-        jal     printChar
-        nop
-
-.L31:
-        li      $4,32                 # 0x20
-        jal     printChar
-        nop
-
-        lw      $26,16($fp)
-        addiu   $26,$26,1
-        sw      $26,16($fp)
-.L29:
-        lw      $3,16($fp)
-        lw      $26,68($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L32
-        nop
-
-        jal     printNewLine
-        nop
-
-        lw      $26,20($fp)
-        addiu   $26,$26,1
-        sw      $26,20($fp)
-.L28:
+.L34:
         lw      $3,20($fp)
-        lw      $26,68($fp)
-        slt     $26,$3,$26
-        bne     $26,$0,.L33
+        move    $2,$3
+        sll     $2,$2,1
+        addu    $2,$2,$3
+        sll     $2,$2,2
+        move    $3,$2
+        lw      $2,64($fp)
+        addu    $3,$2,$3
+        lw      $2,16($fp)
+        sll     $2,$2,2
+        addu    $2,$3,$2
+        lw      $3,0($2)
+        li      $2,32                 # 0x20
+        beq     $3,$2,.L32
         nop
 
-        lw      $26,24($fp)
+        lw      $3,20($fp)
+        move    $2,$3
+        sll     $2,$2,1
+        addu    $2,$2,$3
+        sll     $2,$2,2
+        move    $3,$2
+        lw      $2,64($fp)
+        addu    $3,$2,$3
+        lw      $2,16($fp)
+        sll     $2,$2,2
+        addu    $2,$3,$2
+        lw      $2,0($2)
+        sb      $2,36($fp)
+        lbu     $2,36($fp)
+        addiu   $2,$2,-48
+        sw      $2,40($fp)
+        lbu     $2,36($fp)
+        move    $4,$2
+        jal     printChar
+        nop
+
+        lw      $3,32($fp)
+        lw      $2,24($fp)
+        sll     $2,$2,2
+        addu    $2,$3,$2
+        lw      $2,0($2)
+        lw      $3,40($fp)
+        bne     $3,$2,.L33
+        nop
+
+        lw      $2,24($fp)
+        addiu   $2,$2,1
+        sw      $2,24($fp)
+        b       .L33
+        nop
+
+.L32:
+        li      $4,32                 # 0x20
+        jal     guardv0Print
+        nop
+
+.L33:
+        li      $4,32                 # 0x20
+        jal     guardv0Print
+        nop
+
+        lw      $2,16($fp)
+        addiu   $2,$2,1
+        sw      $2,16($fp)
+.L31:
+        lw      $3,16($fp)
+        lw      $2,68($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L34
+        nop
+
+        li      $4,10                 # 0xa
+        jal     guardv0Print
+        nop
+
+        lw      $2,20($fp)
+        addiu   $2,$2,1
+        sw      $2,20($fp)
+.L30:
+        lw      $3,20($fp)
+        lw      $2,68($fp)
+        slt     $2,$3,$2
+        bne     $2,$0,.L35
+        nop
+
+        lw      $2,24($fp)
         move    $sp,$16
         move    $sp,$fp
         lw      $31,60($sp)

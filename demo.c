@@ -1,4 +1,14 @@
+    void printChar(char x); 
+    void troca(int *xp, int *yp); 
+    int readChar(void);
+    int verificaVetor(int tabuleiro[3][3], int n);
+    void guardv0Read(int* retorno);
+    void guardv0Print(char ch);
+    void guardv0Troca(int *a, int*b);
+    int guardv0VerificaVetor(int *retorno, int tabuleiro[3][3],int n);
+    
     int main(void) {
+        
         int n = 3;
         int c = 0;
         int resposta;
@@ -15,8 +25,7 @@
         msg[7] = 'i';
         msg[8] = 'u';
         msg[9] = '!';
-        msg[10] = '\n';
-
+        msg[10] = 10;
 
         int tabuleiro[n][n];
         int setInicial[n*n];
@@ -33,11 +42,6 @@
         setInicial[7] = '5';
         setInicial[8] = '8';
 
-        //quando compilo no compiler explorer mudo a utilização dos registradores $2
-        //devido ao fato de o syscall usar este mesmo registrador
-        //então compilo para gerar o código mips e mudo todos os registradores de $2 para $26
-
-
         //fazer ajuste no final da main no demo.asm para interromper a execução do programa
 
         for (int i=0; i<n; i++ ){
@@ -47,14 +51,13 @@
                 c++;
             }
         }
-        
-
+    
         for (int i=0; i<n; i++ ){
             for (int j=0; j<n; j++ ){
-                printChar(tabuleiro[i][j]);
-                printChar(' ');
+                guardv0Print(tabuleiro[i][j]);
+                guardv0Print(' ');
             }
-            printNewLine();
+            guardv0Print('\n');
         }
 
         //aqui começa a interação com o usuario
@@ -64,84 +67,112 @@
         // d -> direita
         // s -> baixo
         while (conseguiu == 0){
-            char comando;
-            comando = readChar();
+            int comando;
+            guardv0Read(&comando);
             // printChar(comando);
             if (comando == 'a'){
                 if (pvX>0){
-                    troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX-1]);
+                    guardv0Troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX-1]);
                     pvX--;
                 }
             }else if(comando == 'd'){
                 if (pvX<n-1){
-                    troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX+1]);
+                    guardv0Troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX+1]);
                     pvX++;
                 }
             }else if(comando == 'w'){
                 if (pvY>0){
-                    troca(&tabuleiro[pvY-1][pvX],&tabuleiro[pvY][pvX]);
+                    guardv0Troca(&tabuleiro[pvY-1][pvX],&tabuleiro[pvY][pvX]);
                     pvY--;
                 }
             }else if(comando == 's'){
                 if (pvY<n-1){
-                    troca(&tabuleiro[pvY+1][pvX],&tabuleiro[pvY][pvX]);
+                    guardv0Troca(&tabuleiro[pvY+1][pvX],&tabuleiro[pvY][pvX]);
                     pvY++;
                 }
             }
 
             //imprimir matriz
-            resposta =verificaVetor(tabuleiro,n);
+            guardv0VerificaVetor(&resposta,tabuleiro,n);
             
             if (resposta == 8){
                 conseguiu = 1;
                 
                 for (int i = 0; i < count; i++){
-                    printChar(msg[i]);
+                    guardv0Print(msg[i]);
                 }
             }
-                
-            
-            printNewLine();
+
+            guardv0Print('\n');
             
         }
-        
+        __asm__(
+            "addi $v0,$zero,10\n"
+            "syscall"
+        );
 
         return 0;
     }
 
-    void printInt(int x){
+    void guardv0Print(char ch){
         __asm__(
-            "ori $v0, $zero, 1\n\t"
-            "add $a0, %0, $zero\n"
-            "syscall"         // MIPS system call to print integer
-            :
-            : "r" (x)
+        "sw $2, 0($sp)\n"
         );
+
+        
+        printChar(ch);
+
+        __asm__(
+            "lw $2, 0($sp)\n"
+        );
+    }
+    void guardv0Troca(int *a, int*b){
+        __asm__(
+        "sw $2, 0($sp)\n"
+        );
+
+        
+        troca(a,b);
+
+        __asm__(
+            "lw $2, 0($sp)\n"
+        );
+    }
+    void guardv0Read(int* retorno){
+        __asm__(
+            "sw $2, 0($sp)\n"
+        );
+
+        
+        *retorno = readChar();
+        
+
+        __asm__(
+            "lw $2, 0($sp)\n"
+        );
+    }
+    int guardv0VerificaVetor(int *retorno,int tabuleiro[3][3],int n){
+        __asm__(
+        "sw $2, 0($sp)\n"
+        );
+        
+        *retorno = verificaVetor(tabuleiro,n);
+        __asm__(
+        "lw $2, 0($sp)\n"
+        );
+        return 0;
     }
     void printChar(char x){
         __asm__(
+            
+            "sw $3, 0($sp)\n"
+            "add $3,$zero,%0\n"
             "ori $v0, $zero, 11\n\t"
-            "add $a0, %0, $zero\n"
-            "syscall"         // MIPS system call to print integer
+            "add $a0, $3, $zero\n"
+            "syscall\n"
+            "lw $3, 0($sp)"         // MIPS system call to print char
             :
             : "r" (x)
-        );
-    }
-
-    void printString(char x[]){
-        __asm__(
-            "ori $v0, $zero, 4\n\t"
-            "add $a0, %0, $zero\n"
-            "syscall"         // MIPS system call to print integer
-            :
-            : "r" (x)
-        );
-    }
-    void printNewLine(){
-        __asm__(
-            "ori $v0, $zero, 11\n\t"
-            "addi $a0, $zero, 10 \n"
-            "syscall"         // MIPS system call to print integer
         );
     }
 
@@ -154,20 +185,22 @@
 
     int readChar(void){
         int input;
+
         __asm__(
+            "\n"
             "li $v0, 12\n\t"
             "syscall  \n"
             "move %0, $v0"
-            : "=r" (input)        // MIPS system call to print integer
+            : "=r" (input)        // MIPS system call to read char
         );
-        printNewLine();
-        printNewLine();
+        guardv0Print(10);
+        guardv0Print(10);
 
 
         return input;
     }
 
-    int verificaVetor(int *tabuleiro[3][3], int n){
+    int verificaVetor(int tabuleiro[3][3], int n){
         int correto[(n*n)-1];
         int c = 0;
         char caractere;
@@ -186,18 +219,17 @@
                 if (tabuleiro[i][j] != ' '){
                     caractere = tabuleiro[i][j];
                     elemento = caractere - '0';
-                    printInt(elemento);
+                    printChar(caractere);
                     if(elemento == correto[c]){
                         c++;
                     }
                 }else{
-                    printChar(' ');
+                    guardv0Print(' ');
                 }
                 
-                printChar(' ');
+                guardv0Print(' ');
             }
-            printNewLine();
+            guardv0Print('\n');
         }
         return c;
     }
-
