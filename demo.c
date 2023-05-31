@@ -3,8 +3,6 @@
     int readChar(void);
     int verificaVetor(int tabuleiro[3][3], int n);
     void guardv0Read(int* retorno);
-    void guardv0Print(char ch);
-    void guardv0Troca(int *a, int*b);
     int guardv0VerificaVetor(int *retorno, int tabuleiro[3][3],int n);
     
     int main(void) {
@@ -54,10 +52,10 @@
     
         for (int i=0; i<n; i++ ){
             for (int j=0; j<n; j++ ){
-                guardv0Print(tabuleiro[i][j]);
-                guardv0Print(' ');
+                printChar(tabuleiro[i][j]);
+                printChar(' ');
             }
-            guardv0Print('\n');
+            printChar('\n');
         }
 
         //aqui começa a interação com o usuario
@@ -72,22 +70,22 @@
             // printChar(comando);
             if (comando == 'a'){
                 if (pvX>0){
-                    guardv0Troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX-1]);
+                    troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX-1]);
                     pvX--;
                 }
             }else if(comando == 'd'){
                 if (pvX<n-1){
-                    guardv0Troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX+1]);
+                    troca(&tabuleiro[pvY][pvX],&tabuleiro[pvY][pvX+1]);
                     pvX++;
                 }
             }else if(comando == 'w'){
                 if (pvY>0){
-                    guardv0Troca(&tabuleiro[pvY-1][pvX],&tabuleiro[pvY][pvX]);
+                    troca(&tabuleiro[pvY-1][pvX],&tabuleiro[pvY][pvX]);
                     pvY--;
                 }
             }else if(comando == 's'){
                 if (pvY<n-1){
-                    guardv0Troca(&tabuleiro[pvY+1][pvX],&tabuleiro[pvY][pvX]);
+                    troca(&tabuleiro[pvY+1][pvX],&tabuleiro[pvY][pvX]);
                     pvY++;
                 }
             }
@@ -99,11 +97,11 @@
                 conseguiu = 1;
                 
                 for (int i = 0; i < count; i++){
-                    guardv0Print(msg[i]);
+                    printChar(msg[i]);
                 }
             }
 
-            guardv0Print('\n');
+            printChar('\n');
             
         }
         __asm__(
@@ -114,39 +112,14 @@
         return 0;
     }
 
-    void guardv0Print(char ch){
-        __asm__(
-        "sw $2, 0($sp)\n"
-        );
 
-        
-        printChar(ch);
-
-        __asm__(
-            "lw $2, 0($sp)\n"
-        );
-    }
-    void guardv0Troca(int *a, int*b){
-        __asm__(
-        "sw $2, 0($sp)\n"
-        );
-
-        
-        troca(a,b);
-
-        __asm__(
-            "lw $2, 0($sp)\n"
-        );
-    }
     void guardv0Read(int* retorno){
         __asm__(
             "sw $2, 0($sp)\n"
         );
-
         
         *retorno = readChar();
         
-
         __asm__(
             "lw $2, 0($sp)\n"
         );
@@ -164,23 +137,32 @@
     }
     void printChar(char x){
         __asm__(
-            
+            "sw $2, 0($sp)\n"
             "sw $3, 0($sp)\n"
             "add $3,$zero,%0\n"
             "ori $v0, $zero, 11\n\t"
             "add $a0, $3, $zero\n"
             "syscall\n"
-            "lw $3, 0($sp)"         // MIPS system call to print char
+            "lw $3, 0($sp)\n"
+            "lw $2, 0($sp)"         // MIPS system call to print char
             :
             : "r" (x)
         );
     }
 
     void troca(int *xp, int *yp)
-    {
+    {   
+        __asm__(
+        "sw $2, 0($sp)\n"
+        );
+
         int temp = *xp;
         *xp = *yp;
         *yp = temp;
+
+        __asm__(
+        "lw $2, 0($sp)\n"
+        );
     }
 
     int readChar(void){
@@ -193,8 +175,8 @@
             "move %0, $v0"
             : "=r" (input)        // MIPS system call to read char
         );
-        guardv0Print(10);
-        guardv0Print(10);
+        printChar(10);
+        printChar(10);
 
 
         return input;
@@ -224,12 +206,12 @@
                         c++;
                     }
                 }else{
-                    guardv0Print(' ');
+                    printChar(' ');
                 }
                 
-                guardv0Print(' ');
+                printChar(' ');
             }
-            guardv0Print('\n');
+            printChar('\n');
         }
         return c;
     }

@@ -235,9 +235,9 @@ main:
         lw      $2,0($2)
         andi    $2,$2,0x00ff
         move    $4,$2
-        jal     guardv0Print
+        jal     printChar
         li      $4,32                 # 0x20
-        jal     guardv0Print
+        jal     printChar
         lw      $2,20($fp)
         addiu   $2,$2,1
         sw      $2,20($fp)
@@ -247,7 +247,7 @@ main:
         slt     $2,$3,$2
         bne     $2,$0,.L8
         li      $4,10                 # 0xa
-        jal     guardv0Print
+        jal     printChar
         lw      $2,24($fp)
         addiu   $2,$2,1
         sw      $2,24($fp)
@@ -285,7 +285,7 @@ main:
         addu    $2,$3,$2
         move    $5,$2
         move    $4,$6
-        jal     guardv0Troca
+        jal     troca
         lw      $2,40($fp)
         addiu   $2,$2,-1
         sw      $2,40($fp)
@@ -318,7 +318,7 @@ main:
         addu    $2,$3,$2
         move    $5,$2
         move    $4,$6
-        jal     guardv0Troca
+        jal     troca
         lw      $2,40($fp)
         addiu   $2,$2,1
         sw      $2,40($fp)
@@ -347,7 +347,7 @@ main:
         lw      $3,68($fp)
         addu    $2,$3,$2
         move    $5,$2
-        jal     guardv0Troca
+        jal     troca
         lw      $2,36($fp)
         addiu   $2,$2,-1
         sw      $2,36($fp)
@@ -379,7 +379,7 @@ main:
         lw      $3,68($fp)
         addu    $2,$3,$2
         move    $5,$2
-        jal     guardv0Troca
+        jal     troca
         lw      $2,36($fp)
         addiu   $2,$2,1
         sw      $2,36($fp)
@@ -403,7 +403,7 @@ main:
         addu    $2,$3,$2
         lbu     $2,68($2)
         move    $4,$2
-        jal     guardv0Print
+        jal     printChar
         lw      $2,16($fp)
         addiu   $2,$2,1
         sw      $2,16($fp)
@@ -414,7 +414,7 @@ main:
         bne     $2,$0,.L17
 .L15:
         li      $4,10                 # 0xa
-        jal     guardv0Print
+        jal     printChar
 .L10:
         lw      $2,44($fp)
         beq     $2,$0,.L18
@@ -434,46 +434,6 @@ syscall
         lw      $17,132($sp)
         lw      $16,128($sp)
         addiu   $sp,$sp,168
-        jr      $31
-guardv0Print:
-        addiu   $sp,$sp,-24
-        sw      $31,20($sp)
-        sw      $fp,16($sp)
-        move    $fp,$sp
-        move    $2,$4
-        sb      $2,24($fp)
-        sw $2, 0($sp)
-
-        lbu     $2,24($fp)
-        move    $4,$2
-        jal     printChar
-        lw $2, 0($sp)
-
-        nop
-        move    $sp,$fp
-        lw      $31,20($sp)
-        lw      $fp,16($sp)
-        addiu   $sp,$sp,24
-        jr      $31
-guardv0Troca:
-        addiu   $sp,$sp,-24
-        sw      $31,20($sp)
-        sw      $fp,16($sp)
-        move    $fp,$sp
-        sw      $4,24($fp)
-        sw      $5,28($fp)
-        sw $2, 0($sp)
-
-        lw      $5,28($fp)
-        lw      $4,24($fp)
-        jal     troca
-        lw $2, 0($sp)
-
-        nop
-        move    $sp,$fp
-        lw      $31,20($sp)
-        lw      $fp,16($sp)
-        addiu   $sp,$sp,24
         jr      $31
 guardv0Read:
         addiu   $sp,$sp,-24
@@ -526,12 +486,14 @@ printChar:
         move    $2,$4
         sb      $2,8($fp)
         lbu     $2,8($fp)
-        sw $3, 0($sp)
+        sw $2, 0($sp)
+sw $3, 0($sp)
 add $3,$zero,$2
 ori $v0, $zero, 11
         add $a0, $3, $zero
 syscall
 lw $3, 0($sp)
+lw $2, 0($sp)
         nop
         move    $sp,$fp
         lw      $fp,4($sp)
@@ -543,6 +505,8 @@ troca:
         move    $fp,$sp
         sw      $4,16($fp)
         sw      $5,20($fp)
+        sw $2, 0($sp)
+
         lw      $2,16($fp)
         lw      $2,0($2)
         sw      $2,0($fp)
@@ -553,13 +517,13 @@ troca:
         lw      $2,20($fp)
         lw      $3,0($fp)
         sw      $3,0($2)
+        lw $2, 0($sp)
+
         nop
         move    $sp,$fp
         lw      $fp,12($sp)
         addiu   $sp,$sp,16
         jr      $31
-        nop
-
 readChar:
         addiu   $sp,$sp,-32
         sw      $31,28($sp)
@@ -571,9 +535,9 @@ li $v0, 12
 move $2, $v0
         sw      $2,16($fp)
         li      $4,10                 # 0xa
-        jal     guardv0Print
+        jal     printChar
         li      $4,10                 # 0xa
-        jal     guardv0Print
+        jal     printChar
         lw      $2,16($fp)
         move    $sp,$fp
         lw      $31,28($sp)
@@ -646,15 +610,15 @@ verificaVetor:
         li      $3,8                        # 0x8
         sw      $3,28($2)
         sw      $0,20($fp)
-        b       .L30
+        b       .L28
         nop
 
-.L35:
+.L33:
         sw      $0,16($fp)
-        b       .L31
+        b       .L29
         nop
 
-.L34:
+.L32:
         lw      $3,20($fp)
         move    $2,$3
         sll     $2,$2,1
@@ -668,7 +632,7 @@ verificaVetor:
         addu    $2,$3,$2
         lw      $3,0($2)
         li      $2,32                 # 0x20
-        beq     $3,$2,.L32
+        beq     $3,$2,.L30
         nop
 
         lw      $3,20($fp)
@@ -698,47 +662,47 @@ verificaVetor:
         addu    $2,$3,$2
         lw      $2,0($2)
         lw      $3,40($fp)
-        bne     $3,$2,.L33
+        bne     $3,$2,.L31
         nop
 
         lw      $2,24($fp)
         addiu   $2,$2,1
         sw      $2,24($fp)
-        b       .L33
+        b       .L31
         nop
 
-.L32:
+.L30:
         li      $4,32                 # 0x20
-        jal     guardv0Print
+        jal     printChar
         nop
 
-.L33:
+.L31:
         li      $4,32                 # 0x20
-        jal     guardv0Print
+        jal     printChar
         nop
 
         lw      $2,16($fp)
         addiu   $2,$2,1
         sw      $2,16($fp)
-.L31:
+.L29:
         lw      $3,16($fp)
         lw      $2,68($fp)
         slt     $2,$3,$2
-        bne     $2,$0,.L34
+        bne     $2,$0,.L32
         nop
 
         li      $4,10                 # 0xa
-        jal     guardv0Print
+        jal     printChar
         nop
 
         lw      $2,20($fp)
         addiu   $2,$2,1
         sw      $2,20($fp)
-.L30:
+.L28:
         lw      $3,20($fp)
         lw      $2,68($fp)
         slt     $2,$3,$2
-        bne     $2,$0,.L35
+        bne     $2,$0,.L33
         nop
 
         lw      $2,24($fp)
