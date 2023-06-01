@@ -1,3 +1,5 @@
+#include <stdint.h>
+
 using byte = __uint8_t;
 using word = __int32_t;
 

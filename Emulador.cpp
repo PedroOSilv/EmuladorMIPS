@@ -30,7 +30,6 @@ int main(int argc, char const *argv[])
     }
 
     word instruction;
-    word inst_aux;
     PC = 0x00000000;
     HI = 0x00000000;
     LO = 0x00000000;
@@ -45,14 +44,10 @@ int main(int argc, char const *argv[])
         }
 
         // busca a instrução, big endian
-        inst_aux = MEM[PC];
-        instruction = inst_aux & 0xFF;
-        inst_aux = MEM[PC + 1];
-        instruction |= (inst_aux & 0xFF) << 8;
-        inst_aux = MEM[PC + 2];
-        instruction |= (inst_aux & 0xFF) << 16;
-        inst_aux = MEM[PC + 3];
-        instruction |= (inst_aux & 0xFF) << 24;
+        instruction = MEM[PC];
+        instruction |= MEM[PC + 1] << 8;
+        instruction |= MEM[PC + 2] << 16;
+        instruction |= MEM[PC + 3] << 24;
 
         // executa a instrução
         if(instruction == 0x00000000 || PC > 0x00003ffc){
@@ -63,7 +58,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    //print_reg_mem();
+    print_reg_mem();
 
     return 0;
 }
@@ -110,11 +105,11 @@ void R_inst(word instruction){
     {
     case 0x00:
         // sll
-        REG[rd] = REG[rt] << shamt;
+        REG[rd] = (unsigned)REG[rt] << shamt;
         break;
     case 0x02:
         // srl
-        REG[rd] = REG[rt] >> shamt;
+        REG[rd] = (unsigned)REG[rt] >> shamt;
         break;
     case 0x03:
         // sra
@@ -150,9 +145,17 @@ void R_inst(word instruction){
         // add
         REG[rd] = REG[rs] + REG[rt];
         break;
+    case 0x21:
+        // addu
+        REG[rd] = (unsigned)REG[rs] + (unsigned)REG[rt];
+        break;
     case 0x22:
         // sub
         REG[rd] = REG[rs] - REG[rt];
+        break;
+    case 0x23:
+        // subu
+        REG[rd] = (unsigned)REG[rs] - (unsigned)REG[rt];
         break;
     case 0x24:
         // and
@@ -162,10 +165,15 @@ void R_inst(word instruction){
         // or
         REG[rd] = REG[rs] | REG[rt];
         break;
+    case 0x27:
+        // nor
+        REG[rd] = !(REG[rs] | REG[rt]);
     case 0x2A:
         //slt
         REG[rd] = REG[rs] < REG[rt];
         break;
+    default:
+       printf("R type opcode nao reconhecido: PC: %d %d %X\n", PC, instruction, funct);
     }
 
     if(funct != 0x08){
@@ -183,6 +191,18 @@ void I_inst(word instruction, byte opcode){
     // identifica o tipo de instrução
     switch (opcode)
     {
+    case 0x04:
+        // beq
+        if(REG[rs] == REG[rt]){
+            PC += immediate << 2;
+        }
+        break;
+    case 0x05:
+        // bne
+        if(REG[rs] != REG[rt]){
+            PC += immediate << 2;
+        }
+        break;
     case 0x08:
         // addi
         REG[rt] = REG[rs] + immediate;
@@ -190,6 +210,26 @@ void I_inst(word instruction, byte opcode){
     case 0x09:
         // addiu
         REG[rt] = (unsigned)REG[rs] + (unsigned)immediate;
+        break;
+    case 0x0A:
+        // slti
+        REG[rt] = REG[rs] < immediate;
+        break;
+    case 0x0B:
+        // sltiu
+        REG[rt] = (unsigned)REG[rs] < immediate;
+        break;
+    case 0x0C:
+        // andi
+        REG[rt] = REG[rs] & immediate;
+        break;
+    case 0x0D:
+        // ori
+        REG[rt] = REG[rs] | immediate;
+        break;
+    case 0x0F:
+        // lui
+        REG[rt] = immediate;
         break;
     case 0x23:
         // lw
@@ -223,34 +263,8 @@ void I_inst(word instruction, byte opcode){
         // sb
         MEM[REG[rs] + immediate] = REG[rt];
         break;
-    case 0x0F:
-        // lui
-        REG[rt] = immediate;
-        break;
-    case 0x0C:
-        // andi
-        REG[rt] = REG[rs] & immediate;
-        break;
-    case 0x0D:
-        // ori
-        REG[rt] = REG[rs] | immediate;
-        break;
-    case 0x0A:
-        // slti
-        REG[rt] = REG[rs] < immediate;
-        break;
-    case 0x04:
-        // beq
-        if(REG[rs] == REG[rt]){
-            PC += immediate << 2;
-        }
-        break;
-    case 0x05:
-        // bne
-        if(REG[rs] != REG[rt]){
-            PC += immediate << 2;
-        }
-        break;
+    default:
+       printf("I type opcode nao reconhecido: PC: %d %d %X\n", PC, instruction, opcode);
     }
 }
 
@@ -282,7 +296,7 @@ inline void syscall(){
             break;
         case 10:
             // exit
-            //print_reg_mem();
+            print_reg_mem();
             exit(0);
             break;
         case 11:
@@ -310,10 +324,7 @@ inline void syscall(){
             break;
         default:
             break;
-
-
     }
-
 }
 
 inline bool load_mem(char const* text, char const* data){
