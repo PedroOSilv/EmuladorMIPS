@@ -394,12 +394,12 @@ inline bool load_mem(char const* text, char const* data){
 }
 
 inline void print_reg_mem(){
-    /*word i;
+    word i;
 
     for(i = 0; i < 32; i++){
         printf("$%d\t%d\n", i, REG[i]);
     }
     for(i = 0; i < 1024; i++){
         printf("Mem[%x] 0x%x\t0x%x\t0x%x\t0x%x\n", i, MEM[i], MEM[i+1], MEM[i+2], MEM[i+3]);
-    }*/
+    }
 }
