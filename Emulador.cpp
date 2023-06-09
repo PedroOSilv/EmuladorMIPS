@@ -64,7 +64,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    //print_reg_mem();
+    print_reg_mem();
 
     return 0;
 }
@@ -333,7 +333,7 @@ inline void syscall(){
             break;
         case 10:
             // exit
-            //print_reg_mem();
+            print_reg_mem();
             exit(0);
             break;
         case 11:
