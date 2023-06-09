@@ -179,7 +179,7 @@ void R_inst(word instruction){
         // nor
         REG[rd] = !(REG[rs] | REG[rt]);
     case 0x2A:
-        //slt
+        // slt
         REG[rd] = REG[rs] < REG[rt];
         break;
     default:
@@ -204,8 +204,8 @@ void I_inst(word instruction, byte opcode){
     switch (opcode)
     {
     case 0x01:
-        //bqez
-        if(REG[rs] >+ 0){
+        // bgez
+        if(REG[rs] >= 0){
           PC += immediate << 2;
         }
     case 0x04:
