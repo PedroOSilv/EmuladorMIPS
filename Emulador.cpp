@@ -5,6 +5,7 @@
 // de apenas dois registradores, porem eh considerada um operacao R
 #include <cstdio>
 #include <cstdlib>
+#include <ncurses.h>
 #include "Emulador.h"
 
 word PC;
@@ -63,7 +64,7 @@ int main(int argc, char const *argv[])
         }
     }
 
-    print_reg_mem();
+    //print_reg_mem();
 
     return 0;
 }
@@ -208,6 +209,7 @@ void I_inst(word instruction, byte opcode){
         if(REG[rs] >= 0){
           PC += immediate << 2;
         }
+        break;
     case 0x04:
         // beq
         if(REG[rs] == REG[rt]){
@@ -331,7 +333,7 @@ inline void syscall(){
             break;
         case 10:
             // exit
-            print_reg_mem();
+            //print_reg_mem();
             exit(0);
             break;
         case 11:
@@ -340,9 +342,17 @@ inline void syscall(){
             break;
         case 12:
             // read character
-            char c;
-            scanf("%c", &c);
-            V0 = (int)c;
+            // faz a leitura do char sem precisar apertar enter
+
+            system("stty -echo"); // supress echo
+            system("stty cbreak"); // go to RAW mode
+            
+            V0 = getchar();
+            printf("%c", V0);
+            
+            system ("stty echo"); // Make echo work
+            system("stty -cbreak");// go to COOKED mode
+
             break;
         case 34:
             // print integer in hexadecimal
